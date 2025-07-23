@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "plugins.jiosaavn")
 public class JioSaavnConfig {
-    private String apiURL = null;
+    private String apiURL = null; // default value for API URL
     private int playlistTrackLimit = 50; // default value for playlist track limit
     private int recommendationsTrackLimit = 10; // default value for recommendations
     public String getApiURL() {
         return apiURL;
     }
     public void setApiURL(String apiURL) {
-        this.apiURL = apiURL;
+        this.apiURL = apiURL; // setter for API URL
     }
     public int getPlaylistTrackLimit() {
-        return playlistTrackLimit;
+        return playlistTrackLimit; // getter for playlist track limit
     }
 
     public void setPlaylistTrackLimit(int playlistTrackLimit) {
