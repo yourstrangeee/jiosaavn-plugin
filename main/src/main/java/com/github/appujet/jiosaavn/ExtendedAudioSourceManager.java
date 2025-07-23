@@ -58,7 +58,14 @@ public abstract class ExtendedAudioSourceManager  implements AudioSourceManager,
         try (final CloseableHttpResponse response = this.getHttpInterface().execute(httpGet)) {
             final String content = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
             //log.info("Response from API: {}", content);
-            return JsonBrowser.parse(content);
+            // Fix: Only parse if content looks like JSON, else throw a clear error
+            String trimmed = content.trim();
+            if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+                return JsonBrowser.parse(content);
+            } else {
+                log.error("JioSaavn API returned non-JSON response: {}", trimmed.length() > 200 ? trimmed.substring(0, 200) + "..." : trimmed);
+                throw new RuntimeException("JioSaavn API did not return JSON. Response starts with: " + (trimmed.length() > 30 ? trimmed.substring(0, 30) : trimmed));
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
