@@ -20,7 +20,7 @@ public class JioSaavnConfig {
     }
 
     public void setPlaylistTrackLimit(int playlistTrackLimit) {
-        this.playlistTrackLimit = playlistTrackLimit;
+        this.playlistTrackLimit = playlistTrackLimit; // setter for playlist track limit
     }
 
     public int getRecommendationsTrackLimit() {
